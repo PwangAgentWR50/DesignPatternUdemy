@@ -14,12 +14,13 @@ class Person {
     }
 }
 
-class PersonBuilder {
+class PersonBuilder<SELF extends PersonBuilder<SELF>> {
     protected Person person = new Person();
 
-    public PersonBuilder withName(String name) {
+    public SELF withName(String name) {
+        // here we cannot return PersonBuilder
         person.name = name;
-        return this;
+        return (SELF)this;
     }
 
     public Person build() {
@@ -27,7 +28,7 @@ class PersonBuilder {
     }
 }
 
-class EmployeeBuilder extends PersonBuilder {
+class EmployeeBuilder extends PersonBuilder<EmployeeBuilder> {
     public EmployeeBuilder worksAt(String position) {
         person.position = position;
         return this;
@@ -40,8 +41,6 @@ public class RecursiveGenerics {
         Person doe = pb
                 .withName("Doe")
                 .worksAt("pos")
-                // even EmployeeBuilder doesn't have worksAt() function
-                // here .worksAt() [line 20] returns PersonBuilder, not EmployeeBuilder
                 .build();
 
     }
