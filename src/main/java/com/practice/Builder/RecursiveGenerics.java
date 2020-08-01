@@ -36,10 +36,12 @@ class EmployeeBuilder extends PersonBuilder {
 
 public class RecursiveGenerics {
     public static void main(String[] args) {
-        PersonBuilder pb = new PersonBuilder();
+        EmployeeBuilder pb = new EmployeeBuilder();
         Person doe = pb
                 .withName("Doe")
-                .worksAt("pos") // here worksAt function is not available
+                .worksAt("pos")
+                // even EmployeeBuilder doesn't have worksAt() function
+                // here .worksAt() [line 20] returns PersonBuilder, not EmployeeBuilder
                 .build();
 
     }
