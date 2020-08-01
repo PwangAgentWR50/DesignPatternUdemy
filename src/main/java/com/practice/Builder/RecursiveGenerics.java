@@ -20,17 +20,26 @@ class PersonBuilder<SELF extends PersonBuilder<SELF>> {
     public SELF withName(String name) {
         // here we cannot return PersonBuilder
         person.name = name;
-        return (SELF)this;
+        return self();
     }
 
     public Person build() {
         return person;
+    }
+
+    protected SELF self() {
+        return (SELF) this;
     }
 }
 
 class EmployeeBuilder extends PersonBuilder<EmployeeBuilder> {
     public EmployeeBuilder worksAt(String position) {
         person.position = position;
+        return this;
+    }
+
+    @Override
+    protected EmployeeBuilder self() {
         return this;
     }
 }
@@ -40,8 +49,8 @@ public class RecursiveGenerics {
         EmployeeBuilder pb = new EmployeeBuilder();
         Person doe = pb
                 .withName("Doe")
-                .worksAt("pos")
+                .worksAt("engineer")
                 .build();
-
+        System.out.println(doe);
     }
 }
