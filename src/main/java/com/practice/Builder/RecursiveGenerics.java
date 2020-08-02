@@ -18,7 +18,6 @@ class PersonBuilder<SELF extends PersonBuilder<SELF>> {
     protected Person person = new Person();
 
     public SELF withName(String name) {
-        // here we cannot return PersonBuilder
         person.name = name;
         return self();
     }
@@ -28,14 +27,14 @@ class PersonBuilder<SELF extends PersonBuilder<SELF>> {
     }
 
     protected SELF self() {
-        return (SELF) this;
+        return (SELF)this;
     }
 }
 
 class EmployeeBuilder extends PersonBuilder<EmployeeBuilder> {
-    public EmployeeBuilder worksAt(String position) {
-        person.position = position;
-        return this;
+    public EmployeeBuilder workAt(String position) {
+        this.person.position = position;
+        return self();
     }
 
     @Override
@@ -48,8 +47,8 @@ public class RecursiveGenerics {
     public static void main(String[] args) {
         EmployeeBuilder pb = new EmployeeBuilder();
         Person doe = pb
-                .withName("Doe")
-                .worksAt("engineer")
+                .withName("dow")
+                .workAt("engineer")
                 .build();
         System.out.println(doe);
     }
