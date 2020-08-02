@@ -16,9 +16,9 @@ class Person
     }
 }
 
-class PersonBuilder<SELF extends com.udemy.Builder.Facets.PersonBuilder<SELF>>
+class PersonBuilder<SELF extends PersonBuilder<SELF>>
 {
-    protected com.udemy.Builder.Facets.Person person = new com.udemy.Builder.Facets.Person();
+    protected Person person = new Person();
 
     // critical to return SELF here
     public SELF withName(String name)
@@ -35,14 +35,14 @@ class PersonBuilder<SELF extends com.udemy.Builder.Facets.PersonBuilder<SELF>>
         return (SELF) this;
     }
 
-    public com.udemy.Builder.Facets.Person build()
+    public Person build()
     {
         return person;
     }
 }
 
 class EmployeeBuilder
-        extends com.udemy.Builder.Facets.PersonBuilder<EmployeeBuilder>
+        extends PersonBuilder<EmployeeBuilder>
 {
     public EmployeeBuilder worksAs(String position)
     {
